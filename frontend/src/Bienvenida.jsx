@@ -102,7 +102,7 @@ export default function Bienvenida() {
     pointerEvents: "none",
   }}
 >
-  <source src="/videos/skz.mp4" type="video/mp4" />
+  <source src="/public/videos/skz.mp4" type="video/mp4" />
 </video>
 
 
