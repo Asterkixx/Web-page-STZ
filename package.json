@@ -1,0 +1,28 @@
+{
+  "name": "album-concierto-backend",
+  "version": "1.0.0",
+  "description": "Backend para el Álbum Virtual Interactivo de Concierto",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "seed": "node seed/seedTarjetas.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mongodb": "^7.3.0",
+    "mongoose": "^8.4.1",
+    "socket.io": "^4.7.5",
+    "socket.io-client": "^4.8.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "author": "Tu Nombre",
+  "license": "MIT"
+}
