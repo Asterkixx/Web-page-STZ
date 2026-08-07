@@ -5,7 +5,7 @@ import PantallaEscanear from "./PantallaEscanear";
 import Bienvenida from "./Bienvenida";
 import fondo from "./Straykidsft.jpg";
 
-const API_URL = "https://web-page-stz.onrender.com/";
+const API_URL = "https://web-page-stz.onrender.com";
 
 // PALETA DE COLORES ORIGINAL
 const C = {
