@@ -56,8 +56,8 @@ export default function Bienvenida() {
 
         {/* ── Logo circular ── */}
         <div style={{
-          width:        "400px",
-          height:       "400px",
+          width:        "250px",
+          height:       "300px",
           borderRadius: "50%",
           background:   "rgba(0, 0, 0, 0)",
           display:      "flex",
@@ -84,28 +84,27 @@ export default function Bienvenida() {
           />
         </div>
 
-
-{/* ── Video de fondo ── */}
+{/* ── Video de fondo Cloudinary ── */}
 <video
-  muted
   autoPlay
+  muted
   loop
   playsInline
   style={{
-    position:   "absolute",
-    inset:      0,
-    width:      "100%",
-    height:     "100%",
-    objectFit:  "cover",
-    opacity:    0.09,
-    zIndex:     0,
+    position:      "absolute",
+    top:           "50%",
+    left:          "50%",
+    transform:     "translate(-50%, -50%) scale(1.5)",
+    width:         "100%",
+    height:        "100%",
+    objectFit:     "cover",
+    opacity:       0.05,
+    zIndex:        0,
     pointerEvents: "none",
   }}
 >
-  <source src="/videos/skz.mp4" type="video/mp4" />
+  <source src="https://res.cloudinary.com/y3mjtzpc/video/upload/q_auto:low,w_720,vc_auto,so_300,eo_420/v1786262520/skz.mp4" type="video/mp4" />
 </video>
-
-
         {/* ── Título principal ── */}
         <h1 style={{
           margin:        "0 0 16px",
