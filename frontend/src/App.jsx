@@ -19,70 +19,266 @@ const C = {
 };
 
 // =============================================
-// COMPONENTE: Tarjeta Individual
+// COMPONENTE: Modal de Tarjeta
 // =============================================
-function Tarjeta({ tarjeta, onReclamar, userId, animando }) {
+function ModalTarjeta({ tarjeta, onCerrar, userId }) {
   const esMia     = tarjeta.usuarioId === userId;
   const bloqueada = !tarjeta.desbloqueada;
-  const [hover, setHover]       = useState(false);
   const [imgError, setImgError] = useState(false);
+  const numeroLimpio = parseInt(tarjeta.numeracion, 10);
+  const rutaFoto     = `/tarjetas/${numeroLimpio}.jpg`;
+
+  // Formatear fecha
+  const fechaFormateada = tarjeta.fechaReclamo
+    ? new Date(tarjeta.fechaReclamo).toLocaleDateString("es-CO", {
+        year: "numeric", month: "long", day: "numeric",
+        hour: "2-digit", minute: "2-digit",
+      })
+    : null;
+
+  // Extraer nombre legible del usuarioId
+  const nombreUsuario = tarjeta.usuarioId
+    ? tarjeta.usuarioId.replace("user_", "").replace(/_/g, " ")
+    : null;
+
+  return (
+    <div
+      onClick={onCerrar}
+      style={{
+        position:        "fixed",
+        inset:           0,
+        background:      "rgba(0,0,0,0.85)",
+        zIndex:          1000,
+        display:         "flex",
+        alignItems:      "center",
+        justifyContent:  "center",
+        padding:         "24px",
+        backdropFilter:  "blur(6px)",
+        animation:       "fadeIn 0.2s ease",
+      }}
+    >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        style={{
+          background:    "linear-gradient(160deg, #0a0a12, #04212F)",
+          border:        `1px solid ${bloqueada ? "rgba(255,255,255,0.1)" : "rgba(249,190,12,0.4)"}`,
+          borderRadius:  "20px",
+          padding:       "28px 24px",
+          width:         "100%",
+          maxWidth:      "340px",
+          display:       "flex",
+          flexDirection: "column",
+          alignItems:    "center",
+          gap:           "16px",
+          boxShadow:     bloqueada
+            ? "0 20px 60px rgba(0,0,0,0.6)"
+            : "0 20px 60px rgba(0,0,0,0.6), 0 0 40px rgba(249,190,12,0.1)",
+          position:      "relative",
+        }}
+      >
+        {/* Botón cerrar */}
+        <button
+          onClick={onCerrar}
+          style={{
+            position:     "absolute",
+            top:          "12px",
+            right:        "12px",
+            background:   "rgba(255,255,255,0.08)",
+            border:       "none",
+            borderRadius: "50%",
+            width:        "28px",
+            height:       "28px",
+            color:        "rgba(255,255,255,0.6)",
+            cursor:       "pointer",
+            fontSize:     "14px",
+            display:      "flex",
+            alignItems:   "center",
+            justifyContent: "center",
+          }}
+        >✕</button>
+
+        {/* Número */}
+        <span style={{
+          fontSize:      "10px",
+          color:         bloqueada ? "rgba(255,255,255,0.3)" : "rgba(249,190,12,0.8)",
+          fontFamily:    "monospace",
+          letterSpacing: "3px",
+        }}>
+          TARJETA #{String(tarjeta.numeracion).padStart(3, "0")}
+        </span>
+
+        {/* Imagen o placeholder */}
+        <div style={{
+          width:        "200px",
+          height:       "280px",
+          borderRadius: "12px",
+          overflow:     "hidden",
+          border:       `1px solid ${bloqueada ? "rgba(255,255,255,0.08)" : "rgba(249,190,12,0.3)"}`,
+          background:   "#04212F",
+          display:      "flex",
+          alignItems:   "center",
+          justifyContent: "center",
+          flexShrink:   0,
+        }}>
+          {!bloqueada && !imgError ? (
+            <img
+              src={rutaFoto}
+              alt={tarjeta.nombreCancion}
+              onError={() => setImgError(true)}
+              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            />
+          ) : (
+            <div style={{ fontSize: "64px", opacity: 0.4 }}>
+              {bloqueada ? "🔒" : esMia ? "⭐" : "🎵"}
+            </div>
+          )}
+        </div>
+
+        {/* Info */}
+        {bloqueada ? (
+          <div style={{ textAlign: "center" }}>
+            <p style={{ margin: "0 0 6px", fontSize: "18px", fontWeight: "800", color: "rgba(255,255,255,0.4)" }}>
+              Sin reclamar
+            </p>
+            <p style={{ margin: 0, fontSize: "12px", color: "rgba(255,255,255,0.25)", fontFamily: "monospace" }}>
+              Esta tarjeta aún está disponible
+            </p>
+          </div>
+        ) : (
+          <div style={{ textAlign: "center", width: "100%" }}>
+            {/* Álbum */}
+            <p style={{ margin: "0 0 4px", fontSize: "10px", color: "rgba(50,54,162,0.9)", letterSpacing: "3px", textTransform: "uppercase", fontWeight: "700" }}>
+              {tarjeta.album}
+            </p>
+
+            {/* Nombre canción */}
+            <h3 style={{ margin: "0 0 16px", fontSize: "22px", fontWeight: "900", fontStyle: "italic", color: "#FFFFFF", lineHeight: 1.2 }}>
+              {tarjeta.nombreCancion}
+            </h3>
+
+            {/* Divisor */}
+            <div style={{ height: "1px", background: "rgba(249,190,12,0.2)", margin: "0 0 16px" }} />
+
+            {/* Reclamada por */}
+            <div style={{
+              background:   "rgba(249,190,12,0.06)",
+              border:       "1px solid rgba(249,190,12,0.15)",
+              borderRadius: "10px",
+              padding:      "12px 16px",
+              textAlign:    "left",
+            }}>
+              <p style={{ margin: "0 0 4px", fontSize: "9px", color: "rgba(255,255,255,0.35)", letterSpacing: "2px", textTransform: "uppercase" }}>
+                {esMia ? "Reclamada por ti" : "Reclamada por"}
+              </p>
+              <p style={{ margin: "0 0 8px", fontSize: "18px", fontWeight: "800", color: esMia ? "#F9BE0C" : "#FFFFFF", textTransform: "capitalize" }}>
+                {nombreUsuario || "Coleccionista"}
+              </p>
+              {fechaFormateada && (
+                <p style={{ margin: 0, fontSize: "10px", color: "rgba(255,255,255,0.3)", fontFamily: "monospace" }}>
+                  {fechaFormateada}
+                </p>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// =============================================
+// COMPONENTE: Tarjeta Individual
+// =============================================
+function Tarjeta({ tarjeta, userId, animando }) {
+  const esMia     = tarjeta.usuarioId === userId;
+  const bloqueada = !tarjeta.desbloqueada;
+  const [hover,       setHover]       = useState(false);
+  const [imgError,    setImgError]    = useState(false);
+  const [modalAbierto, setModalAbierto] = useState(false);
 
   const numeroLimpio = parseInt(tarjeta.numeracion, 10);
   const rutaFoto     = `/tarjetas/${numeroLimpio}.jpg`;
 
- return (
-  <div style={{ flexShrink: 0, display: "flex", flexDirection: "column", alignItems: "center", gap: "6px" }}>
-
-    {/* Número ENCIMA */}
-    <span style={{ fontSize: "10px", color: bloqueada ? C.blancoTenue : C.amarillo, fontFamily: "monospace", letterSpacing: "2px", fontWeight: "700" }}>
-      {String(tarjeta.numeracion).padStart(3, "0")}
-    </span>
-
-    {/* Tarjeta */}
-    <div
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
-      style={{
-        width: "130px", height: "185px", borderRadius: "15px",
-        cursor: "default",
-        transition: "transform 0.25s ease, box-shadow 0.25s ease",
-        transform: animando ? "scale(1.1)" : hover ? "translateY(-4px) scale(1.03)" : "scale(1)",
-        border: esMia ? `2px solid ${C.amarillo}` : bloqueada ? `1px solid rgba(50,54,162,0.5)` : `1px solid rgba(255, 255, 255, 0)`,
-        boxShadow: animando ? `0 0 28px rgba(249,190,12,0.9)` : esMia ? `0 4px 20px rgba(249,190,12,0.3)` : hover ? `0 10px 28px rgba(0,0,0,0.6)` : `0 2px 8px rgba(0,0,0,0.5)`,
-        userSelect: "none", position: "relative", overflow: "hidden", background: "#04212F",
-      }}
-    >
-      {/* Imagen o fallback */}
-      {!bloqueada && !imgError ? (
-        <img src={rutaFoto} alt={tarjeta.nombreCancion} onError={() => setImgError(true)}
-          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
-      ) : bloqueada ? (
-        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(160deg, #04212F 0%, #020c14 100%)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "42px", opacity: 0.7 }}>🔒</div>
-      ) : (
-        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(160deg, #050a1f 0%, #020510 100%)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "42px" }}>
-          {esMia ? "⭐" : "🎵"}
-        </div>
+  return (
+    <>
+      {/* Modal */}
+      {modalAbierto && (
+        <ModalTarjeta
+          tarjeta={tarjeta}
+          onCerrar={() => setModalAbierto(false)}
+          userId={userId}
+        />
       )}
 
-      {/* Badge TUYA */}
-      {esMia && (
-        <span style={{ position: "absolute", top: "6px", right: "6px", background: C.amarillo, color: C.negro, fontSize: "6px", fontWeight: "800", padding: "2px 5px", borderRadius: "3px", zIndex: 3 }}>
-          TUYA
+      <div style={{ flexShrink: 0, display: "flex", flexDirection: "column", alignItems: "center", gap: "6px" }}>
+
+        {/* Número ENCIMA */}
+        <span style={{ fontSize: "14px", color: "rgb(255,255,255)", fontFamily: "monospace", letterSpacing: "2px", fontWeight: "700" }}>
+          {String(tarjeta.numeracion).padStart(3, "0")}
         </span>
-      )}
 
-      {/* Brillo superior */}
-      <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "2px", background: esMia ? `linear-gradient(90deg, transparent, ${C.amarillo}, transparent)` : `linear-gradient(90deg, transparent, rgba(50,54,162,0.6), transparent)`, zIndex: 3 }} />
-    </div>
+        {/* Tarjeta clickeable */}
+        <div
+          onClick={() => setModalAbierto(true)}
+          onMouseEnter={() => setHover(true)}
+          onMouseLeave={() => setHover(false)}
+          style={{
+            width:      "130px",
+            height:     "185px",
+            borderRadius: "15px",
+            cursor:     "pointer",
+            transition: "transform 0.25s ease, box-shadow 0.25s ease",
+            transform:  animando ? "scale(1.1)" : hover ? "translateY(-4px) scale(1.03)" : "scale(1)",
+            border:     esMia
+              ? `2px solid rgb(107,12,12)`
+              : bloqueada
+              ? `1px solid rgba(0,0,0,0.5)`
+              : `1px solid rgba(255,255,255,0)`,
+            boxShadow:  animando
+              ? `0 0 28px rgba(0,0,0,0.9)`
+              : esMia
+              ? `0 4px 8px rgba(255,255,255,0.68)`
+              : hover
+              ? `0 10px 28px rgba(249,190,12,0.2)`
+              : `0 2px 8px rgba(0,0,0,0.5)`,
+            userSelect: "none",
+            position:   "relative",
+            overflow:   "hidden",
+            background: "#04212F",
+          }}
+        >
+          {/* Imagen o fallback */}
+          {!bloqueada && !imgError ? (
+            <img src={rutaFoto} alt={tarjeta.nombreCancion} onError={() => setImgError(true)}
+              style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
+          ) : bloqueada ? (
+            <div style={{ position: "absolute", inset: 0, background: "linear-gradient(160deg, #000000 0%, #000000 100%)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "42px", opacity: 0.7 }}>🔒</div>
+          ) : (
+            <div style={{ position: "absolute", inset: 0, background: "linear-gradient(160deg, #000000 0%, #000000 100%)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "42px" }}>
+              {esMia ? "⭐" : "🎵"}
+            </div>
+          )}
 
-    {/* Nombre DEBAJO */}
-    <p style={{ margin: 0, fontSize: "15px", fontStyle: "italic", letterSpacing: "2px", color: bloqueada ? C.blancoTenue : C.blanco, fontWeight: bloqueada ? "400" : "700", textAlign: "center", maxWidth: "120px", lineHeight: 1.3, overflow: "hidden", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical" }}>
-      {bloqueada ? "???" : tarjeta.nombreCancion}
-    </p>
+          {/* Badge TUYA */}
+          {esMia && (
+            <span style={{ position: "absolute", top: "6px", right: "6px", background: "#F9BE0C", color: "#000", fontSize: "6px", fontWeight: "800", padding: "2px 5px", borderRadius: "3px", zIndex: 3 }}>
+              TUYA
+            </span>
+          )}
 
-  </div>
+          {/* Brillo superior */}
+          <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "2px", background: esMia ? `linear-gradient(90deg, transparent, #F9BE0C, transparent)` : `linear-gradient(90deg, transparent, rgb(0,0,0), transparent)`, zIndex: 3 }} />
+        </div>
+
+        {/* Nombre DEBAJO */}
+        <p style={{ margin: 0, fontSize: "15px", fontStyle: "italic", letterSpacing: "2px", color: bloqueada ? "rgba(255,255,255,0.35)" : "#FFFFFF", fontWeight: bloqueada ? "400" : "700", textAlign: "center", maxWidth: "120px", lineHeight: 1.3, overflow: "hidden", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical" }}>
+          {bloqueada ? "???" : tarjeta.nombreCancion}
+        </p>
+      </div>
+    </>
   );
 }
+
 
 // =============================================
 // COMPONENTE: Sección de Álbum (scroll horizontal)
@@ -113,17 +309,17 @@ function SeccionAlbum({ nombre, tarjetas, tarjetasFiltradas, onReclamar, userId,
           </h2>
         </div>
         <div style={{ textAlign: "right" }}>
-          <p style={{ margin: "0 0 4px", fontSize: "11px", fontFamily: "monospace", color: desbloqueadas === total ? "#4CAF50" : C.amarillo }}>
+          <p style={{ margin: "0 0 4px", fontSize: "14px", fontFamily: "monospace", color: desbloqueadas === total ? "#ffffff" : C.amarillo }}>
             {desbloqueadas}/{total} desbloqueadas
           </p>
-          <div style={{ width: "120px", height: "3px", background: "rgba(255,255,255,0.08)", borderRadius: "2px" }}>
-            <div style={{ height: "100%", width: `${porcentajeAlbum}%`, background: `linear-gradient(90deg, ${C.azulMedio}, ${C.amarillo})`, borderRadius: "2px", transition: "width 0.6s ease" }} />
+          <div style={{ width: "120px", height: "7px", background: "rgb(95, 9, 9)", borderRadius: "2px" }}>
+            <div style={{ height: "100%", width: `${porcentajeAlbum}%`, background: `rgba(249, 225, 12, 0.97)`, borderRadius: "2px", transition: "width 0.6s ease" }} />
           </div>
         </div>
       </div>
 
       {/* Contenedor scroll horizontal */}
-      <div style={{ position: "relative" }}>
+      <div style={{ position: "relative", padding: "0 24px" }}>
         <button onClick={() => scroll(-1)} style={{ position: "absolute", left: "-16px", top: "50%", transform: "translateY(-50%)", zIndex: 10, background: `rgba(4,33,47,0.9)`, border: `1px solid ${C.azulMedio}`, borderRadius: "50%", width: "32px", height: "32px", color: C.blanco, cursor: "pointer", fontSize: "16px", display: "flex", alignItems: "center", justifyContent: "center" }}>‹</button>
 
         <div ref={scrollRef} style={{ display: "flex", gap: "12px", overflowX: "auto", paddingBottom: "12px", paddingTop: "4px", scrollbarWidth: "none", msOverflowStyle: "none" }}>
@@ -247,16 +443,15 @@ function AlbumPrincipal() {
   });
 
   return (
-    <div style={{ minHeight: "100vh", backgroundImage: `linear-gradient(rgba(4,33,47,0.92), rgba(0,0,0,0.97)), url(${fondo})`, backgroundSize: "cover", backgroundPosition: "center", backgroundAttachment: "fixed", color: C.blanco, fontFamily: "'Segoe UI', system-ui, sans-serif" }}>
+    <div style={{ minHeight: "100vh", backgroundImage: `radial-gradient(rgba(0, 0, 0, 0.53), rgba(0, 0, 0, 0.66)), url(${fondo})`, backgroundSize: "cover", backgroundPosition: "center", backgroundAttachment: "fixed", color: C.blanco, fontFamily: "'Segoe UI', system-ui, sans-serif" }}>
 
       {/* HEADER MINIMALISTA */}
-      <header style={{ background: "rgba(4,33,47,0.95)", borderBottom: `1px solid rgba(50,54,162,0.4)`, backdropFilter: "blur(16px)", position: "sticky", top: 0, zIndex: 100 }}>
-        <div style={{ height: "4px", background: `linear-gradient(90deg, ${C.azulMedio}, ${C.amarillo}, ${C.azulMedio})` }} />
-        
+      <header style={{ background: "rgba(0, 0, 0, 0.88)", borderBottom: `1px solid rgb(0, 0, 0)`, backdropFilter: "blur(16px)", position: "sticky", top: 0, zIndex: 100 }}>
+       
         {/* CONTENEDOR PRINCIPAL: Altura reducida a 200px para el logo solitario */}
         <div style={{ 
-          maxWidth: "800px", 
-          height: "200px", 
+          maxWidth: "400px", 
+          height: "100px", 
           margin: "0 auto", 
           padding: "16px 24px", 
           display: "flex", 
@@ -272,7 +467,7 @@ function AlbumPrincipal() {
               src="/skz-logo.png"
               alt="SKZ Virtual Album"
               style={{
-                height: "180px",
+                height: "80px",
                 width: "auto",
                 objectFit: "contain",
                 display: "block",
@@ -284,13 +479,13 @@ function AlbumPrincipal() {
 
         {/* BARRA DE PROGRESO INFERIOR */}
         <div style={{ height: "10px", background: "rgba(255,255,255,0.05)" }}>
-          <div style={{ height: "100%", width: `${porcentaje}%`, background: `linear-gradient(90deg, ${C.azulMedio}, ${C.amarillo})`, transition: "width 0.6s ease" }} />
+          <div style={{ height: "100%", width: `${porcentaje}%`, background: `rgba(249, 40, 12, 0.34)`, transition: "width 0.6s ease" }} />
         </div>
       </header>
 
       {/* HERO STRIP (Donde ahora recae la información estadística) */}
-      <div style={{ background: "rgba(0,0,0,0.6)", borderBottom: `1px solid rgba(172,172,176,0.2)`, padding: "20px 24px" }}>
-        <div style={{ maxWidth: "1200px", margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "20px", flexWrap: "wrap" }}>
+      <div style={{ background: "rgba(15, 12, 12, 0.86)", borderBottom: `1px solid rgba(0, 0, 0, 0.61)`, padding: "20px 24px" }}>
+        <div style={{ maxWidth: "900px", margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "20px", flexWrap: "wrap" }}>
           <div>
             <p style={{ margin: 0, fontSize: "11px", color: C.blancoTenue, letterSpacing: "2px", textTransform: "uppercase", marginBottom: "6px" }}>Progreso del álbum</p>
             <div style={{ display: "flex", alignItems: "baseline", gap: "8px" }}>

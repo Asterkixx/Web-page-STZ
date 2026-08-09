@@ -55,7 +55,7 @@ album: {
       type: Number,
       required: true,
       min: 1,
-      max: 256, // ❌ Error durante el seed: Tarjeta,
+      max: 230, // ❌ Error durante el seed: Tarjeta,
     },
 
     // Estado principal: ¿La tarjeta ha sido reclamada?
@@ -76,6 +76,13 @@ album: {
       type: Date,
       default: null,
     },
+   
+    // Dedicatoria que el usuario puede dejar al reclamar la tarjeta
+    dedicatoria: {
+  type: String,
+  default: null,
+  maxlength: 150,
+},
 // URL de la imagen que representa esta tarjeta
     imagenUrl: {
       type: String,

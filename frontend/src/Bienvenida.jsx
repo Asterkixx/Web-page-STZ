@@ -80,7 +80,7 @@ export default function Bienvenida() {
           <img
             src="/skz-icon.png"
             alt="Stray Kids"
-            style={{ width: "85%", height: "85%", objectFit: "contain" }}
+            style={{ width: "120%", height: "120%", objectFit: "contain" }}
           />
         </div>
 
@@ -102,7 +102,7 @@ export default function Bienvenida() {
     pointerEvents: "none",
   }}
 >
-  <source src="/public/videos/skz.mp4" type="video/mp4" />
+  <source src="/videos/skz.mp4" type="video/mp4" />
 </video>
 
 
@@ -154,7 +154,7 @@ export default function Bienvenida() {
             cursor:        "pointer",
             letterSpacing: "0.5px",
             transition:    "transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease",
-            boxShadow:     "0 4px 24px rgba(249,190,12,0.3)",
+            boxShadow:     "0 4px 24px rgba(95, 5, 5, 0.72)",
             fontFamily:    "'Segoe UI', system-ui, sans-serif",
           }}
           onMouseEnter={(e) => {

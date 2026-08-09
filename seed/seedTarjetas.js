@@ -116,9 +116,23 @@ const ALBUMES = [
     nombre: "DO IT",
     canciones: ["Do it","DIVINE","Holiday","Photobook"]
   },
+
+  {
+    nombre: "SKZ-REPLAY 2026 Pt.1", 
+    canciones: ["Roman empire", "LOVER", "Raining stars", "The little things", "GOODBYE", "Still here", "Into the current", "MIC & BRUS",  "PERFUME", "BABY", "Don’t say", "MY NAME", "REV IT UP", "STAY"]
+  },
+
+
+  {
+    nombre: "THIS & THAT", canciones: ["RUN IT","This & That","After you","Farming","I Do","Way out", "Back then"]
+
+  }
+
+
+
   {
     nombre: "Otras",
-    canciones: ["Scars","Calll","Social path","Butterflies","Hoodie season","Party's not over"]
+    canciones: ["Scars","Call","Social path","Butterflies","Hoodie season","Party's not over"]
   },
 ];
 

@@ -36,7 +36,7 @@ router.get('/', async (req, res) => {
     const tarjetas= await Tarjeta.find(filtro)
       .sort({ numeracion: 1 })
       // Seleccionamos qué campos enviar (no enviamos _id de Mongo innecesariamente)
-      .select('codigoQR nombreCancion album numeracion desbloqueada usuarioId imagenUrl fechaReclamo');
+      .select('codigoQR nombreCancion album numeracion desbloqueada usuarioId imagenUrl fechaReclamo dedicatoria');
 
     // Obtenemos el contador global de tarjetas desbloqueadas
     const totalDesbloqueadas = await Tarjeta.contarDesbloqueadas();
@@ -152,6 +152,8 @@ router.post('/reclamar', async (req, res) => {
     tarjeta.desbloqueada = true;
     tarjeta.usuarioId = usuarioId;
     tarjeta.fechaReclamo = new Date();
+    tarjeta.dedicatoria = req.body.dedicatoria || null;
+
 
     const tarjetaActualizada = await tarjeta.save();
 
