@@ -55,7 +55,7 @@ album: {
       type: Number,
       required: true,
       min: 1,
-      max: 230, // ❌ Error durante el seed: Tarjeta,
+      max: 256, // ❌ Error durante el seed: Tarjeta,
     },
 
     // Estado principal: ¿La tarjeta ha sido reclamada?

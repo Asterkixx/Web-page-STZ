@@ -170,7 +170,7 @@ function ModalTarjeta({ tarjeta, onCerrar, userId }) {
               <p style={{ margin: "0 0 4px", fontSize: "9px", color: "rgba(255,255,255,0.35)", letterSpacing: "2px", textTransform: "uppercase" }}>
                 {esMia ? "Reclamada por ti" : "Reclamada por"}
               </p>
-              <p style={{ margin: "0 0 8px", fontSize: "18px", fontWeight: "800", color: esMia ? "#F9BE0C" : "#FFFFFF", textTransform: "capitalize" }}>
+              <p style={{ margin: "0 0 8px", fontSize: "18px", fontWeight: "800", color: esMia ? "#a71a1a" : "#FFFFFF", textTransform: "capitalize" }}>
                 {nombreUsuario || "Coleccionista"}
               </p>
               {fechaFormateada && (
@@ -230,16 +230,16 @@ function Tarjeta({ tarjeta, userId, animando }) {
             transition: "transform 0.25s ease, box-shadow 0.25s ease",
             transform:  animando ? "scale(1.1)" : hover ? "translateY(-4px) scale(1.03)" : "scale(1)",
             border:     esMia
-              ? `2px solid rgb(107,12,12)`
+              ? `2px solid rgb(156, 17, 17)`
               : bloqueada
               ? `1px solid rgba(0,0,0,0.5)`
               : `1px solid rgba(255,255,255,0)`,
             boxShadow:  animando
               ? `0 0 28px rgba(0,0,0,0.9)`
               : esMia
-              ? `0 4px 8px rgba(255,255,255,0.68)`
+              ? `0 4px 8px rgba(145, 15, 15, 0.68)`
               : hover
-              ? `0 10px 28px rgba(249,190,12,0.2)`
+              ? `0 10px 28px rgba(255, 255, 255, 0.2)`
               : `0 2px 8px rgba(0,0,0,0.5)`,
             userSelect: "none",
             position:   "relative",
@@ -426,7 +426,7 @@ function AlbumPrincipal() {
 
   const totalDesbloqueadas = tarjetas.filter((t) => t.desbloqueada).length;
   const totalMias          = tarjetas.filter((t) => t.usuarioId === userId).length;
-  const porcentaje         = Math.round((totalDesbloqueadas / 200) * 100);
+  const porcentaje         = Math.round((totalDesbloqueadas / 230) * 100);
 
   const albumesMap = tarjetas.reduce((acc, t) => {
     const a = t.album || "Otras";
@@ -491,14 +491,14 @@ function AlbumPrincipal() {
             <div style={{ display: "flex", alignItems: "baseline", gap: "8px" }}>
               <span style={{ fontSize: "48px", fontWeight: "900", color: C.amarillo, lineHeight: 1 }}>{porcentaje}</span>
               <span style={{ fontSize: "20px", color: C.blancoTenue, fontWeight: "300" }}>%</span>
-              <span style={{ fontSize: "14px", color: C.blancoSuave, marginLeft: "8px" }}>{totalDesbloqueadas} de 200 tarjetas desbloqueadas</span>
+              <span style={{ fontSize: "14px", color: C.blancoSuave, marginLeft: "8px" }}>{totalDesbloqueadas} de 230 tarjetas desbloqueadas</span>
             </div>
           </div>
           <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
             {[
               { id: "todas",         label: "Todas" },
               { id: "desbloqueadas", label: `Desbloqueadas (${totalDesbloqueadas})` },
-              { id: "bloqueadas",    label: `Sin reclamar (${200 - totalDesbloqueadas})` },
+              { id: "bloqueadas",    label: `Sin reclamar (${230 - totalDesbloqueadas})` },
               { id: "mias",          label: `Mis tarjetas (${totalMias})` },
             ].map((f) => (
               <button key={f.id} onClick={() => setFiltro(f.id)} style={{ padding: "8px 16px", borderRadius: "20px", fontSize: "12px", fontWeight: filtro === f.id ? "700" : "400", background: filtro === f.id ? C.amarillo : "rgba(255,255,255,0.06)", border: filtro === f.id ? "none" : `1px solid rgba(255,255,255,0.12)`, color: filtro === f.id ? C.negro : C.blancoSuave, cursor: "pointer", transition: "all 0.2s ease" }}>

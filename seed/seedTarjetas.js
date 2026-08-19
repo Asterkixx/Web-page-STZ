@@ -17,15 +17,15 @@ const ALBUMES = [
     canciones: ["Hellevator","Beware","Spread my wings","YAYAYA","Glow","School life","4419"]
   },
   {
-    nombre: "I AM NOT",
+    nombre: "I am NOT",
     canciones: ["District 9","Mirror","Awaken","Rock","Grow up","3rd Eye"]
   },
   {
-    nombre: "I AM WHO",
+    nombre: "I am WHO",
     canciones: ["My pace","Voices","Question","Insomnia","M.I.A.","Awkward silence"]
   },
   {
-    nombre: "I AM YOU",
+    nombre: "I am YOU",
     canciones: ["I am you","My side","Hero's soup","Get cool","N/S","0325"]
   },
   {
@@ -33,7 +33,7 @@ const ALBUMES = [
     canciones: ["Miroh","Victory song","Maze of memories","Boxer","Chronosaurus","19"]
   },
   {
-    nombre: "Clé 2: YELLOW WOOD",
+    nombre: "Clé 2: Yellow Wood",
     canciones: ["Side effects","TMT","Placebo","Behind the light","For you","Broken compass"]
   },
   {
@@ -57,7 +57,7 @@ const ALBUMES = [
     canciones: ["Cheese","Thunderous","Domino","Ssick","The view","Sorry, I love you","Silent cry","Secret secret","Star lost","Red lights","Surfin","Gone away","Wolfgang","Mixtape: OH"]
   },
   {
-    nombre: "CHRISTMAS EVEL",
+    nombre: "Christmas EveL",
     canciones: ["Christmas eveL","24 to 25","Winter falls"]
   },
   {
@@ -105,7 +105,7 @@ const ALBUMES = [
     canciones: ["Burnin' tires","Truman","Escape","Cinema"]
   },
   {
-    nombre: "HOLLOW",
+    nombre: "Hollow",
     canciones: ["Hollow","Parade","Never alone","Just a little","宿命"]
   },
   {
@@ -124,16 +124,23 @@ const ALBUMES = [
 
 
   {
-    nombre: "THIS & THAT", canciones: ["RUN IT","This & That","After you","Farming","I Do","Way out", "Back then"]
+    nombre: "THIS & THAT",
+     canciones: ["RUN IT","This & That","After you","Farming","I Do","Way out", "Back then"]
 
   }
 
-
+,
 
   {
     nombre: "Otras",
-    canciones: ["Scars","Call","Social path","Butterflies","Hoodie season","Party's not over"]
+    canciones: ["Scars","Call","Social path","Butterflies","Hoodie season"]
   },
+
+  {
+    nombre: "Colaboraciones/OST",
+    canciones: ["Neverending story", "Hello Stranger", "Heyday", "Like Magic", "Lose my breath", "Slash📀", "Come play", "In the dark"]
+
+  }
 ];
 
 const poblarBaseDeDatos = async () => {
