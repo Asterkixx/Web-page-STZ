@@ -3,7 +3,9 @@ import { io } from "socket.io-client";
 import { Routes, Route } from "react-router-dom";
 import PantallaEscanear from "./PantallaEscanear";
 import Bienvenida from "./Bienvenida";
+import PantallaAdmin from "./PantallaAdmin";
 import fondo from "./Straykidsft.jpg";
+
 
 const API_URL = "https://web-page-stz.onrender.com";
 
@@ -546,6 +548,7 @@ export default function App() {
       <Route path="/"         element={<Bienvenida />} />
       <Route path="/album"    element={<AlbumPrincipal />} />
       <Route path="/escanear" element={<PantallaEscanear />} />
+       <Route path="/admin"  element={<PantallaAdmin />} />
     </Routes>
   );
 }
