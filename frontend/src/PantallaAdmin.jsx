@@ -6,6 +6,7 @@
 
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { Button } from '@heroui/react';
 
 const API_URL      = "https://web-page-stz.onrender.com";
 const VERCEL_URL   = "https://web-page-stz-hl5m.vercel.app";
@@ -50,7 +51,7 @@ function Estadisticas({ tarjetas }) {
           { label: "Bloqueadas",     valor: bloqueadas,    color: C.rojo },
           { label: "Progreso",       valor: `${porcentaje}%`, color: C.amarillo },
         ].map((s) => (
-          <div key={s.label} style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "12px", padding: "16px", textAlign: "center" }}>
+          <div key={s.label} style={{ background: "rgba(32, 25, 25, 0.56)", border: "0px solid rgba(255,255,255,0.08)", borderRadius: "12px", padding: "16px", textAlign: "center" }}>
             <div style={{ fontSize: "32px", fontWeight: "900", color: s.color, lineHeight: 1 }}>{s.valor}</div>
             <div style={{ fontSize: "10px", color: C.blancoTenue, marginTop: "6px", letterSpacing: "1px", textTransform: "uppercase" }}>{s.label}</div>
           </div>
@@ -156,10 +157,10 @@ function GenerarQR({ tarjetas }) {
     String(t.numeracion).includes(busqueda)
   );
 
-  const generarQRIndividual = (codigoQR) => {
-    const url = `${VERCEL_URL}/validar/${codigoQR}`;
-    return `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(url)}`;
-  };
+ const generarQRIndividual = (codigoQR) => {
+  const url = `${VERCEL_URL}/validar/${codigoQR}`;
+  return `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(url)}&t=${codigoQR}`;
+};
 
   const mostrarQRs = () => {
     setGenerando(true);
@@ -280,14 +281,26 @@ export default function PantallaAdmin() {
     setAutenticado(false);
   };
 
-  // ── LOGIN ──────────────────────────────────────────────────────────────────
-  if (!autenticado) {
-    return (
-      <div style={{ minHeight: "100vh", background: C.gris, display: "flex", alignItems: "center", justifyContent: "center", padding: "24px", fontFamily: "'Segoe UI', system-ui, sans-serif" }}>
-        <div style={{ background: "rgba(4,33,47,0.95)", border: "1px solid rgba(50,54,162,0.4)", borderRadius: "20px", padding: "36px 28px", width: "100%", maxWidth: "360px", textAlign: "center" }}>
-          <div style={{ fontSize: "2.5rem", marginBottom: "8px" }}>🔐</div>
-          <h1 style={{ margin: "0 0 4px", fontSize: "20px", fontWeight: "800", color: C.blanco }}>Panel Admin</h1>
-          <p style={{ margin: "0 0 24px", fontSize: "12px", color: C.blancoTenue }}>SKZ Virtual Album</p>
+// ── PANTALLA DE LOGIN ─────────────────────────────────────────────────────
+if (!autenticado) {
+  return (
+    <div style={{ minHeight: "100vh", background: "#100e0b", display: "flex", position: "relative", overflow: "hidden" }}>
+
+      {/* Spectral Edge - Layer 1 */}
+      <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, transparent 0%, rgba(59,130,246,0.04) 32%, rgba(6,182,212,0.18) 45%, rgba(34,197,94,0.22) 51%, rgba(250,204,21,0.20) 57%, rgba(244,63,94,0.18) 64%, transparent 82%)", mixBlendMode: "screen", filter: "blur(75px)", pointerEvents: "none", transform: "translateZ(0)" }} />
+
+      {/* Spectral Edge - Layer 2 */}
+      <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "linear-gradient(102deg, transparent 38%, rgba(255,255,255,0.22) 46%, rgba(125,211,252,0.14) 51%, transparent 60%)", mixBlendMode: "screen", filter: "blur(40px)", opacity: 0.85, pointerEvents: "none", transform: "translateZ(0)" }} />
+
+      {/* Spectral Edge - Layer 3 */}
+      <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse 25% 65% at 92% 50%, rgba(139,92,246,0.16) 0%, transparent 78%)", mixBlendMode: "screen", filter: "blur(88px)", opacity: 0.8, pointerEvents: "none", transform: "translateZ(0)" }} />
+
+      {/* Contenido encima */}
+      <div style={{ position: "relative", zIndex: 1, display: "flex", alignItems: "center", justifyContent: "center", width: "100%", padding: "24px" }}>
+        <div style={{ background: "rgba(0, 0, 0, 0.40)", borderRadius: "20px", padding: "36px 28px", width: "100%", maxWidth: "360px", textAlign: "center" }}>
+          <div style={{ fontSize: "3rem", marginBottom: "8px" }}></div>
+          <h1 style={{ margin: "0 0 4px", fontSize: "20px", fontWeight: "500",fontFamily: "'Segoe UI', system-ui, sans-serif", color: C.blanco }}>PANEL DE ADMINISTRADOR</h1>
+          <p style={{ margin: "0 0 24px", fontSize: "12px",fontFamily: "'Segoe UI', system-ui, sans-serif", color: C.blancoTenue }}>STZ ALBUM</p>
           <input
             type="password"
             placeholder="Contraseña"
@@ -295,72 +308,134 @@ export default function PantallaAdmin() {
             onChange={(e) => setPassword(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && handleLogin()}
             autoFocus
-            style={{ width: "100%", background: "rgba(50,54,162,0.15)", border: `1px solid ${errorPass ? C.rojo : "rgba(50,54,162,0.4)"}`, borderRadius: "8px", color: C.blanco, fontSize: "15px", padding: "12px 14px", outline: "none", boxSizing: "border-box", marginBottom: "8px", fontFamily: "'Segoe UI', system-ui, sans-serif" }}
+            style={{ width: "100%", background: "rgba(0, 0, 0, 0.4)", border: `0px solid ${errorPass ? C.rojo : "rgba(50,54,162,0.4)"}`, borderRadius: "8px", color: C.blanco, fontSize: "15px", padding: "12px 14px", outline: "none", boxSizing: "border-box", marginBottom: "8px", fontFamily: "'Segoe UI', system-ui, sans-serif" }}
           />
           {errorPass && <p style={{ margin: "0 0 8px", fontSize: "12px", color: C.rojo }}>{errorPass}</p>}
-          <button onClick={handleLogin} style={{ width: "100%", background: `linear-gradient(135deg, ${C.azul}, #4a4fcf)`, border: "none", borderRadius: "10px", color: C.blanco, fontSize: "15px", fontWeight: "700", padding: "13px", cursor: "pointer", marginBottom: "12px", fontFamily: "'Segoe UI', system-ui, sans-serif" }}>
+          <button
+            onClick={handleLogin}
+            style={{ width: "70%", background: "linear-gradient(20deg, rgba(0, 0, 0, 0.67), #000000a2)", border: "none", borderRadius: "15px", color: C.blanco, fontSize: "16px", fontWeight: "600", padding: "14px", cursor: "pointer", marginBottom: "27px", fontFamily: "'Segoe UI', system-ui, sans-serif" }}
+          >
             Entrar
           </button>
-          <button onClick={() => navigate("/")} style={{ background: "transparent", border: "none", color: C.blancoTenue, fontSize: "12px", cursor: "pointer" }}>
+          <button onClick={() => navigate("/")} style={{ background: "transparent", border: "0px solid rgb(152,153,175)", fontFamily: "'Segoe UI', system-ui, sans-serif",color: C.blanco, padding: "4px 11px", borderRadius: "8px", fontWeight: "600", fontSize: "9px", cursor: "pointer" }}>
             ← Volver al álbum
           </button>
         </div>
       </div>
-    );
-  }
+    </div>
+  );
+}
 
+ 
   // ── DASHBOARD ─────────────────────────────────────────────────────────────
-  return (
-    <div style={{ minHeight: "100vh", background: C.gris, fontFamily: "'Segoe UI', system-ui, sans-serif", color: C.blanco }}>
 
-      {/* Header */}
-      <header style={{ background: "rgba(4,33,47,0.95)", borderBottom: "1px solid rgba(50,54,162,0.3)", padding: "14px 24px", display: "flex", alignItems: "center", justifyContent: "space-between", position: "sticky", top: 0, zIndex: 100, backdropFilter: "blur(12px)" }}>
-        <div>
-          <h1 style={{ margin: 0, fontSize: "18px", fontWeight: "800", color: C.amarillo }}>⚡ Admin Panel</h1>
-          <p style={{ margin: 0, fontSize: "10px", color: C.blancoTenue, letterSpacing: "1px" }}>SKZ VIRTUAL ALBUM</p>
-        </div>
-        <div style={{ display: "flex", gap: "10px" }}>
-          <button onClick={cargarTarjetas} style={{ background: "rgba(50,54,162,0.2)", border: "1px solid rgba(50,54,162,0.4)", borderRadius: "8px", color: C.blanco, fontSize: "12px", padding: "6px 12px", cursor: "pointer" }}>
-            🔄 Actualizar
-          </button>
-          <button onClick={handleLogout} style={{ background: "rgba(231,76,60,0.1)", border: "1px solid rgba(231,76,60,0.3)", borderRadius: "8px", color: C.rojo, fontSize: "12px", padding: "6px 12px", cursor: "pointer" }}>
-            Salir
-          </button>
-        </div>
-      </header>
+ return (
+    <div 
+      style={{ 
+        position: "relative", 
+        minHeight: "100vh", 
+        overflow: "hidden",
+        fontFamily: "'Segoe UI', system-ui, sans-serif", 
+        color: C.blanco,
+        backgroundColor: "#100e0b" /* Color base para el cuerpo/fondo según las instrucciones del Spectral Edge */
+      }}
+    >
+      {/* Capas del Aura Gradient: Spectral Edge */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          background: "linear-gradient(90deg, transparent 0%, rgba(59,130,246,0.04) 32%, rgba(6,182,212,0.18) 45%, rgba(34,197,94,0.22) 51%, rgba(250,204,21,0.20) 57%, rgba(244,63,94,0.18) 64%, transparent 82%)",
+          mixBlendMode: "screen",
+          filter: "blur(75px)",
+          pointerEvents: "none",
+          transform: "translateZ(0)",
+        }}
+        aria-hidden="true"
+      />
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          background: "linear-gradient(102deg, transparent 38%, rgba(255,255,255,0.22) 46%, rgba(125,211,252,0.14) 51%, transparent 60%)",
+          mixBlendMode: "screen",
+          filter: "blur(40px)",
+          opacity: 0.21,
+          pointerEvents: "none",
+          transform: "translateZ(0)",
+        }}
+        aria-hidden="true"
+      />
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          background: "radial-gradient(ellipse 25% 65% at 92% 50%, rgba(139,92,246,0.16) 0%, transparent 78%)",
+          mixBlendMode: "screen",
+          filter: "blur(88px)",
+          opacity: 0.8,
+          pointerEvents: "none",
+          transform: "translateZ(0)",
+        }}
+        aria-hidden="true"
+      />
 
-      {/* Tabs */}
-      <div style={{ background: "rgba(4,33,47,0.6)", borderBottom: "1px solid rgba(255,255,255,0.06)", padding: "0 24px", display: "flex", gap: "4px" }}>
-        {[
-          { id: "stats",  label: "📊 Estadísticas" },
-          { id: "dedics", label: "💌 Dedicatorias" },
-          { id: "qr",     label: "📱 Generar QR" },
-        ].map(tab => (
-          <button
-            key={tab.id}
-            onClick={() => setSeccion(tab.id)}
-            style={{ background: "transparent", border: "none", borderBottom: seccion === tab.id ? `2px solid ${C.amarillo}` : "2px solid transparent", color: seccion === tab.id ? C.amarillo : C.blancoTenue, fontSize: "13px", fontWeight: seccion === tab.id ? "700" : "400", padding: "14px 16px", cursor: "pointer", transition: "all 0.2s", fontFamily: "'Segoe UI', system-ui, sans-serif" }}
-          >
-            {tab.label}
-          </button>
-        ))}
+      {/* Contenido Principal (Sita por encima con zIndex: 1) */}
+      <div style={{ position: "relative", zIndex: 1, minHeight: "100vh", display: "flex", flexDirection: "column" }}>
+        
+       
+ {/* Header */}
+<header style={{ background: "rgba(25, 27, 27, 0.75)", borderBottom: "0px solid rgba(50,54,162,0.3)", padding: "14px 24px", display: "flex", alignItems: "center", justifyContent: "space-between", position: "sticky", top: 0, zIndex: 100, backdropFilter: "blur(12px)" }}>
+  
+  {/* Contenedor del texto de la esquina alineado verticalmente */}
+  <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", height: "100%" }}>
+    <h1 style={{ margin: 0, fontSize: "18px", fontWeight: "700", color: C.blanco,fontFamily: "'Segoe UI', system-ui, sans-serif", lineHeight: "1.2" }}> PANEL DE ADMINISTRADOR</h1>
+    <p style={{ margin: 0, fontSize: "10px", color: C.blancoTenue, letterSpacing: "1px", lineHeight: "1.2" }}>SKZ VIRTUAL ALBUM</p>
+  </div>
+  
+  <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+    <button onClick={cargarTarjetas} style={{ background: "rgba(15, 15, 17, 0.2)", border: "0px solid rgba(50,54,162,0.4)", borderRadius: "8px", color: C.blanco, fontSize: "12px", padding: "6px 12px", cursor: "pointer" }}>
+      🔄 Actualizar
+    </button>
+    <button onClick={handleLogout} style={{ background: "rgba(231,76,60,0.1)", border: "0px solid rgba(231,76,60,0.3)", borderRadius: "8px", color: C.rojo, fontSize: "12px", padding: "6px 12px", cursor: "pointer" }}>
+      Salir
+    </button>
+  </div>
+</header>
+
+        {/* Tabs */}
+        <div style={{ background: "rgba(27, 31, 32, 0.4)", borderBottom: "0px solid rgba(14, 11, 11, 0.06)", padding: "0 24px", display: "flex", gap: "4px", backdropFilter: "blur(8px)" }}>
+          {[
+            { id: "stats",  label: "📊 Estadísticas" },
+            { id: "dedics", label: "💌 Dedicatorias" },
+            { id: "qr",     label: "📱 Generar QR" },
+          ].map(tab => (
+            <button
+              key={tab.id}
+              onClick={() => setSeccion(tab.id)}
+              style={{ background: "transparent", border: "none", borderBottom: seccion === tab.id ? `2px solid ${C.amarillo}` : "2px solid transparent", color: seccion === tab.id ? C.amarillo : C.blancoTenue, fontSize: "13px", fontWeight: seccion === tab.id ? "700" : "400", padding: "14px 16px", cursor: "pointer", transition: "all 0.2s", fontFamily: "'Segoe UI', system-ui, sans-serif" }}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Contenido */}
+        <main style={{ maxWidth: "900px", width: "100%", margin: "0 auto", padding: "28px 24px", flex: 1 }}>
+          {cargando ? (
+            <div style={{ textAlign: "center", padding: "60px", color: C.blancoTenue }}>
+              <div style={{ fontSize: "32px", marginBottom: "12px" }}>⏳</div>
+              <p>Cargando datos...</p>
+            </div>
+          ) : (
+            <>
+              {seccion === "stats"  && <Estadisticas tarjetas={tarjetas} />}
+              {seccion === "dedics" && <Dedicatorias tarjetas={tarjetas} />}
+              {seccion === "qr"     && <GenerarQR    tarjetas={tarjetas} />}
+            </>
+          )}
+        </main>
       </div>
-
-      {/* Contenido */}
-      <main style={{ maxWidth: "900px", margin: "0 auto", padding: "28px 24px" }}>
-        {cargando ? (
-          <div style={{ textAlign: "center", padding: "60px", color: C.blancoTenue }}>
-            <div style={{ fontSize: "32px", marginBottom: "12px" }}>⏳</div>
-            <p>Cargando datos...</p>
-          </div>
-        ) : (
-          <>
-            {seccion === "stats"  && <Estadisticas tarjetas={tarjetas} />}
-            {seccion === "dedics" && <Dedicatorias tarjetas={tarjetas} />}
-            {seccion === "qr"     && <GenerarQR    tarjetas={tarjetas} />}
-          </>
-        )}
-      </main>
     </div>
   );
 }
