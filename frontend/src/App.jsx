@@ -193,6 +193,24 @@ function ModalTarjeta({ tarjeta, onCerrar, userId }) {
                   {fechaFormateada}
                 </p>
               )}
+
+              {tarjeta.dedicatoria && (
+  <div style={{
+    marginTop: "10px",
+    background: "rgba(249,190,12,0.06)",
+    border: "1px solid rgba(249,190,12,0.15)",
+    borderRadius: "8px",
+    padding: "10px 14px",
+    textAlign: "left",
+  }}>
+    <p style={{ margin: "0 0 4px", fontSize: "9px", color: "rgba(255,255,255,0.3)", letterSpacing: "2px", textTransform: "uppercase" }}>
+      Dedicatoria
+    </p>
+    <p style={{ margin: 0, fontSize: "13px", color: "#FFFFFF", fontStyle: "italic", lineHeight: 1.5 }}>
+      "{tarjeta.dedicatoria}"
+    </p>
+  </div>
+)}
             </div>
           </div>
         )}

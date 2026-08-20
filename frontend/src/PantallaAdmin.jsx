@@ -6,7 +6,7 @@
 
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button } from '@heroui/react';
+
 
 const API_URL      = "https://web-page-stz.onrender.com";
 const VERCEL_URL   = "https://web-page-stz-hl5m.vercel.app";
@@ -16,7 +16,7 @@ const C = {
   fondo:       "#04212F",
   gris:        "#0a0a12",
   azul:        "#3236A2",
-  amarillo:    "#F9BE0C",
+  blanco:      "#640606d8",
   blanco:      "#FFFFFF",
   blancoTenue: "rgba(255,255,255,0.35)",
   rojo:        "#e74c3c",
@@ -65,7 +65,7 @@ function Estadisticas({ tarjetas }) {
           <span style={{ fontSize: "11px", color: C.amarillo, fontFamily: "monospace" }}>{desbloqueadas}/{total}</span>
         </div>
         <div style={{ height: "8px", background: "rgba(255,255,255,0.06)", borderRadius: "4px" }}>
-          <div style={{ height: "100%", width: `${porcentaje}%`, background: `linear-gradient(90deg, ${C.azul}, ${C.amarillo})`, borderRadius: "4px", transition: "width 0.6s ease" }} />
+          <div style={{ height: "100%", width: `${porcentaje}%`, background: `rgb(231, 8, 8)`, borderRadius: "4px", transition: "width 0.6s ease" }} />
         </div>
       </div>
 
@@ -85,7 +85,7 @@ function Estadisticas({ tarjetas }) {
                 </span>
               </div>
               <div style={{ height: "4px", background: "rgba(255,255,255,0.06)", borderRadius: "2px" }}>
-                <div style={{ height: "100%", width: `${pct}%`, background: pct === 100 ? C.verde : `linear-gradient(90deg, ${C.azul}, ${C.amarillo})`, borderRadius: "2px", transition: "width 0.6s ease" }} />
+                <div style={{ height: "100%", width: `${pct}%`, background: pct === 100 ? C.verde : `rgb(231, 8, 8)`, borderRadius: "2px", transition: "width 0.6s ease" }} />
               </div>
             </div>
           );
@@ -119,7 +119,7 @@ function Dedicatorias({ tarjetas }) {
         const nombre = t.usuarioId?.replace("user_", "").replace(/_/g, " ");
         const fecha  = t.fechaReclamo ? new Date(t.fechaReclamo).toLocaleDateString("es-CO", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }) : "";
         return (
-          <div key={t.codigoQR} style={{ background: "rgba(249,190,12,0.05)", border: "1px solid rgba(249,190,12,0.15)", borderRadius: "12px", padding: "14px 16px" }}>
+          <div key={t.codigoQR} style={{ background: "rgba(249, 12, 12, 0.13)", border: "0px solid rgba(249,190,12,0.15)", borderRadius: "12px", padding: "14px 16px" }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "8px" }}>
               <div>
                 <span style={{ fontSize: "10px", color: C.amarillo, fontFamily: "monospace", letterSpacing: "1px" }}>
@@ -180,7 +180,7 @@ function GenerarQR({ tarjetas }) {
   return (
     <div>
       <p style={{ margin: "0 0 16px", fontSize: "12px", color: C.blancoTenue, lineHeight: 1.6 }}>
-        Cada QR apunta a: <code style={{ color: C.amarillo, fontSize: "11px" }}>{VERCEL_URL}/validar/codigo_001</code>
+        Aquí generarás los códigos Qr para cada canción: <code style={{ color: C.amarillo, fontSize: "11px" }}></code>
       </p>
 
       {/* Buscador */}
@@ -189,13 +189,14 @@ function GenerarQR({ tarjetas }) {
         placeholder="Buscar por canción o número..."
         value={busqueda}
         onChange={(e) => setBusqueda(e.target.value)}
-        style={{ width: "100%", background: "rgba(50,54,162,0.15)", border: "1px solid rgba(50,54,162,0.4)", borderRadius: "8px", color: C.blanco, fontSize: "14px", padding: "10px 14px", outline: "none", boxSizing: "border-box", marginBottom: "12px", fontFamily: "'Segoe UI', system-ui, sans-serif" }}
+        style={{ width: "100%", background: "rgba(83, 17, 17, 0.57)",border: "0px solid rgba(83, 17, 17, 0.3)",borderRadius: "8px", color: C.blanco, fontSize: "14px", padding: "10px 14px", outline: "none", boxSizing: "border-box", marginBottom: "12px", fontFamily: "'Segoe UI', system-ui, sans-serif" }}
       />
 
       <button
         onClick={mostrarQRs}
         disabled={generando}
-        style={{ width: "100%", background: `linear-gradient(135deg, ${C.azul}, #4a4fcf)`, border: "none", borderRadius: "10px", color: C.blanco, fontSize: "14px", fontWeight: "700", padding: "12px", cursor: "pointer", marginBottom: "20px", fontFamily: "'Segoe UI', system-ui, sans-serif" }}
+        style={{ width: "40%", background: `linear-gradient(135deg, rgba(173, 8, 8, 0.53), rgba(173, 8, 8, 0.53))`, border: "none", borderRadius: "10px", color: C.blanco, fontSize: "14px", fontWeight: "700", padding: "12px", cursor: "pointer", marginBottom: "20px", fontFamily: "'Segoe UI', system-ui, sans-serif",   display: "block",
+  margin: "0 auto", }}
       >
         {generando ? "Generando..." : `Ver QRs (${tarjetasFiltradas.length} tarjetas)`}
       </button>
@@ -300,7 +301,7 @@ if (!autenticado) {
         <div style={{ background: "rgba(0, 0, 0, 0.40)", borderRadius: "20px", padding: "36px 28px", width: "100%", maxWidth: "360px", textAlign: "center" }}>
           <div style={{ fontSize: "3rem", marginBottom: "8px" }}></div>
           <h1 style={{ margin: "0 0 4px", fontSize: "20px", fontWeight: "500",fontFamily: "'Segoe UI', system-ui, sans-serif", color: C.blanco }}>PANEL DE ADMINISTRADOR</h1>
-          <p style={{ margin: "0 0 24px", fontSize: "12px",fontFamily: "'Segoe UI', system-ui, sans-serif", color: C.blancoTenue }}>STZ ALBUM</p>
+          <p style={{ margin: "0 0 24px", fontSize: "12px",fontFamily: "'Segoe UI', system-ui, sans-serif", color: C.blancoTenue }}>SKZ ALBUM</p>
           <input
             type="password"
             placeholder="Contraseña"
@@ -413,7 +414,7 @@ if (!autenticado) {
             <button
               key={tab.id}
               onClick={() => setSeccion(tab.id)}
-              style={{ background: "transparent", border: "none", borderBottom: seccion === tab.id ? `2px solid ${C.amarillo}` : "2px solid transparent", color: seccion === tab.id ? C.amarillo : C.blancoTenue, fontSize: "13px", fontWeight: seccion === tab.id ? "700" : "400", padding: "14px 16px", cursor: "pointer", transition: "all 0.2s", fontFamily: "'Segoe UI', system-ui, sans-serif" }}
+              style={{ background: "transparent", border: "none", borderBottom: seccion === tab.id ? `2px solid rgba(231, 8, 8, 0.9)` : "2px solid transparent", color: seccion === tab.id ? C.blanco : C.blancoTenue, fontSize: "13px", fontWeight: seccion === tab.id ? "700" : "400", padding: "14px 16px", cursor: "pointer", transition: "all 0.2s", fontFamily: "'Segoe UI', system-ui, sans-serif" }}
             >
               {tab.label}
             </button>
