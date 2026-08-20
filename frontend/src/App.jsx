@@ -6,6 +6,19 @@ import Bienvenida from "./Bienvenida";
 import PantallaAdmin from "./PantallaAdmin";
 import fondo from "./Straykidsft.jpg";
 
+import { useParams, useNavigate } from "react-router-dom";
+
+function ValidarQR() {
+  const { codigoQR } = useParams();
+  const navigate = useNavigate();
+  
+  useEffect(() => {
+    navigate(`/escanear?codigo=${codigoQR}`);
+  }, []);
+
+  return null;
+}
+
 
 const API_URL = "https://web-page-stz.onrender.com";
 
@@ -549,6 +562,7 @@ export default function App() {
       <Route path="/album"    element={<AlbumPrincipal />} />
       <Route path="/escanear" element={<PantallaEscanear />} />
        <Route path="/admin"  element={<PantallaAdmin />} />
+       <Route path="/validar/:codigoQR" element={<ValidarQR />} />
     </Routes>
   );
 }
