@@ -395,10 +395,10 @@ if (!autenticado) {
   </div>
   
   <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
-    <button onClick={cargarTarjetas} style={{ background: "rgba(15, 15, 17, 0.2)", border: "0px solid rgba(50,54,162,0.4)", borderRadius: "8px", color: C.blanco, fontSize: "12px", padding: "6px 12px", cursor: "pointer" }}>
+    <button onClick={cargarTarjetas} style={{ background: "rgba(15, 15, 17, 0.2)",fontFamily: "'Segoe UI', system-ui, sans-serif", border: "0px solid rgba(50,54,162,0.4)", borderRadius: "8px", color: C.blanco, fontSize: "12px", padding: "6px 12px", cursor: "pointer" }}>
       🔄 Actualizar
     </button>
-    <button onClick={handleLogout} style={{ background: "rgba(231,76,60,0.1)", border: "0px solid rgba(231,76,60,0.3)", borderRadius: "8px", color: C.rojo, fontSize: "12px", padding: "6px 12px", cursor: "pointer" }}>
+    <button onClick={handleLogout} style={{ background: "rgba(231,76,60,0.1)",fontFamily: "'Segoe UI', system-ui, sans-serif", border: "0px solid rgba(231,76,60,0.3)", borderRadius: "8px", color: C.rojo, fontSize: "12px", padding: "6px 12px", cursor: "pointer" }}>
       Salir
     </button>
   </div>

@@ -256,8 +256,8 @@ function Tarjeta({ tarjeta, userId, animando }) {
           onMouseEnter={() => setHover(true)}
           onMouseLeave={() => setHover(false)}
           style={{
-            width:      "130px",
-            height:     "185px",
+            width:      "90px",
+            height:     "130px",
             borderRadius: "15px",
             cursor:     "pointer",
             transition: "transform 0.25s ease, box-shadow 0.25s ease",
@@ -353,7 +353,7 @@ function SeccionAlbum({ nombre, tarjetas, tarjetasFiltradas, onReclamar, userId,
 
       {/* Contenedor scroll horizontal */}
       <div style={{ position: "relative", padding: "0 24px" }}>
-        <button onClick={() => scroll(-1)} style={{ position: "absolute", left: "-16px", top: "50%", transform: "translateY(-50%)", zIndex: 10, background: `rgba(4,33,47,0.9)`, border: `1px solid ${C.azulMedio}`, borderRadius: "50%", width: "32px", height: "32px", color: C.blanco, cursor: "pointer", fontSize: "16px", display: "flex", alignItems: "center", justifyContent: "center" }}>‹</button>
+        <button onClick={() => scroll(-1)} style={{ position: "absolute", left: "-16px", top: "50%", transform: "translateY(-50%)", zIndex: 10, background: `rgba(4,33,47,0.9)`, border: `0px solid ${C.azulMedio}`, borderRadius: "50%", width: "32px", height: "32px", color: C.blanco, cursor: "pointer", fontSize: "10px", display: "flex", alignItems: "center", justifyContent: "center" }}>‹</button>
 
         <div ref={scrollRef} style={{ display: "flex", gap: "12px", overflowX: "auto", paddingBottom: "12px", paddingTop: "4px", scrollbarWidth: "none", msOverflowStyle: "none" }}>
           {tarjetasFiltradas.map((tarjeta) => (
@@ -361,10 +361,10 @@ function SeccionAlbum({ nombre, tarjetas, tarjetasFiltradas, onReclamar, userId,
           ))}
         </div>
 
-        <button onClick={() => scroll(1)} style={{ position: "absolute", right: "-16px", top: "50%", transform: "translateY(-50%)", zIndex: 10, background: `rgba(4,33,47,0.9)`, border: `1px solid ${C.azulMedio}`, borderRadius: "50%", width: "32px", height: "32px", color: C.blanco, cursor: "pointer", fontSize: "16px", display: "flex", alignItems: "center", justifyContent: "center" }}>›</button>
+        <button onClick={() => scroll(1)} style={{ position: "absolute", right: "-16px", top: "50%", transform: "translateY(-50%)", zIndex: 10, background: `rgba(4,33,47,0.9)`, border: `0px solid ${C.azulMedio}`, borderRadius: "50%", width: "32px", height: "32px", color: C.blanco, cursor: "pointer", fontSize: "10px", display: "flex", alignItems: "center", justifyContent: "center" }}>›</button>
       </div>
 
-      <div style={{ height: "4px", background: "rgba(50,54,162,0.2)", marginTop: "16px" }} />
+      <div style={{ height: "4px", background: "rgba(165, 0, 0, 0.2)", marginTop: "16px" }} />
     </div>
   );
 }
@@ -479,7 +479,7 @@ function AlbumPrincipal() {
     <div style={{ minHeight: "100vh", backgroundImage: `radial-gradient(rgba(0, 0, 0, 0.53), rgba(0, 0, 0, 0.66)), url(${fondo})`, backgroundSize: "cover", backgroundPosition: "center", backgroundAttachment: "fixed", color: C.blanco, fontFamily: "'Segoe UI', system-ui, sans-serif" }}>
 
       {/* HEADER MINIMALISTA */}
-      <header style={{ background: "rgba(0, 0, 0, 0.88)", borderBottom: `1px solid rgb(0, 0, 0)`, backdropFilter: "blur(16px)", position: "sticky", top: 0, zIndex: 100 }}>
+      <header style={{ background: "rgba(0, 0, 0, 0.88)", borderBottom: `0px solid rgb(0, 0, 0)`, backdropFilter: "blur(16px)", position: "sticky", top: 0, zIndex: 100 }}>
        
         {/* CONTENEDOR PRINCIPAL: Altura reducida a 200px para el logo solitario */}
         <div style={{ 
@@ -517,17 +517,17 @@ function AlbumPrincipal() {
       </header>
 
       {/* HERO STRIP (Donde ahora recae la información estadística) */}
-      <div style={{ background: "rgba(15, 12, 12, 0.86)", borderBottom: `1px solid rgba(0, 0, 0, 0.61)`, padding: "20px 24px" }}>
+      <div style={{ background: "rgba(15, 12, 12, 0.86)", borderBottom: `0px solid rgba(0, 0, 0, 0.61)`, padding: "10px 20px" }}>
         <div style={{ maxWidth: "900px", margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "20px", flexWrap: "wrap" }}>
           <div>
             <p style={{ margin: 0, fontSize: "11px", color: C.blancoTenue, letterSpacing: "2px", textTransform: "uppercase", marginBottom: "6px" }}>Progreso del álbum</p>
             <div style={{ display: "flex", alignItems: "baseline", gap: "8px" }}>
               <span style={{ fontSize: "48px", fontWeight: "900", color: C.amarillo, lineHeight: 1 }}>{porcentaje}</span>
-              <span style={{ fontSize: "20px", color: C.blancoTenue, fontWeight: "300" }}>%</span>
+              <span style={{ fontSize: "20px", color: C.blanco, fontWeight: "300" }}>%</span>
               <span style={{ fontSize: "14px", color: C.blancoSuave, marginLeft: "8px" }}>{totalDesbloqueadas} de 230 tarjetas desbloqueadas</span>
             </div>
-          </div>
-          <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+          </div>  
+          <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" ,borderRadius: "20px",whiteSpace: "nowrap", overflow: "hidden", padding: "4px" }}>
             {[
               { id: "todas",         label: "Todas" },
               { id: "desbloqueadas", label: `Desbloqueadas (${totalDesbloqueadas})` },
@@ -543,7 +543,7 @@ function AlbumPrincipal() {
       </div>
 
       {/* MAIN */}
-      <main style={{ maxWidth: "1200px", margin: "0 auto", padding: "32px 40px" }}>
+      <main style={{ maxWidth: "1200px", margin: "0 auto", padding: "16px 12px" }}>
         {cargando ? (
           <div style={{ textAlign: "center", padding: "100px 20px", color: C.amarillo }}>
             <div style={{ fontSize: "40px", marginBottom: "16px" }}>⏳</div>
@@ -559,7 +559,7 @@ function AlbumPrincipal() {
       {/* FOOTER */}
       <footer style={{ borderTop: `1px solid rgba(172,172,176,0.2)`, padding: "20px 24px", textAlign: "center" }}>
         <p style={{ margin: 0, fontSize: "14px", color: C.blancoTenue, letterSpacing: "3px" }}>
-          SKZ VIRTUAL ALBUM · {userId}
+          Bienvenido {userId}
         </p>
       </footer>
 

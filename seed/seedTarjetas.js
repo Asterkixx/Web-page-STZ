@@ -137,7 +137,7 @@ const ALBUMES = [
   },
 
   {
-    nombre: "Colaboraciones/OST",
+    nombre: "COLAB/OST",
     canciones: ["Neverending story", "Hello Stranger", "Heyday", "Like Magic", "Lose my breath", "Slash📀", "Come play", "In the dark"]
 
   }
