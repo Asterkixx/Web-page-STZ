@@ -119,7 +119,7 @@ const ALBUMES = [
 
   {
     nombre: "SKZ-REPLAY 2026 Pt.1", 
-    canciones: ["Roman empire", "LOVER", "Raining stars", "The little things", "GOODBYE", "Still here", "Into the current", "MIC & BRUS",  "PERFUME", "BABY", "Don’t say", "MY NAME", "REV IT UP", "STAY"]
+    canciones: ["Roman empire", "LOVER", "Raining stars", "The little things", "GOODBYE", "Still here", "Into the current", "MIC & BRUSH",  "PERFUME", "BABY", "Don’t say", "MY NAME", "REV IT UP", "STAY"]
   },
 
 

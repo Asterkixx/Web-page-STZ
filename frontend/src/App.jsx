@@ -364,7 +364,7 @@ function SeccionAlbum({ nombre, tarjetas, tarjetasFiltradas, onReclamar, userId,
         <button onClick={() => scroll(1)} style={{ position: "absolute", right: "-16px", top: "50%", transform: "translateY(-50%)", zIndex: 10, background: `rgba(4,33,47,0.9)`, border: `0px solid ${C.azulMedio}`, borderRadius: "50%", width: "32px", height: "32px", color: C.blanco, cursor: "pointer", fontSize: "10px", display: "flex", alignItems: "center", justifyContent: "center" }}>›</button>
       </div>
 
-      <div style={{ height: "4px", background: "rgba(165, 0, 0, 0.2)", marginTop: "16px" }} />
+      <div style={{ height: "4px", background: "rgba(165, 0, 0, 0.18)", marginTop: "16px" }} />
     </div>
   );
 }
