@@ -102,8 +102,9 @@ export default function ModalTarjeta({ tarjeta, onCerrar, userId }) {
         </span>
 
         <div style={{
-          width: "300px",
-          height: "380px",
+          width: "100%",
+          maxWidth: "300px",
+          aspectRatio: "0.7",
           borderRadius: "20px",
           overflow: "hidden",
           border: `0px solid ${bloqueada ? "rgba(255, 4, 4, 0.08)" : "rgba(249, 12, 12, 0.4)"}`,
@@ -118,7 +119,7 @@ export default function ModalTarjeta({ tarjeta, onCerrar, userId }) {
               src={rutaFoto}
               alt={tarjeta?.nombreCancion}
               onError={() => setImgError(true)}
-              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+              style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
             />
           ) : (
             <div style={{ fontSize: "70px", opacity: 0.7 }}>
