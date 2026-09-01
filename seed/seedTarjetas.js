@@ -10,6 +10,7 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
 const Tarjeta = require('../models/Tarjeta');
+const SPOTIFY_URLS = require('./spotifyUrls');
 
 const ALBUMES = [
   {
@@ -168,6 +169,7 @@ const poblarBaseDeDatos = async () => {
           usuarioId: null,
           fechaReclamo: null,
           imagenUrl: `/img/tarjetas/tarjeta_${numeroFormateado}.jpg`,
+          spotifyUrl: SPOTIFY_URLS[numeracion] || null,
         });
         numeracion++;
       }

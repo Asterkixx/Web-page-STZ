@@ -1,7 +1,49 @@
 import { useState, useEffect, useRef } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
+import { C, FONTS, API_URL } from "./components/theme";
+import fondo from "./Straykidsft.jpg";
 
-const API_URL = "https://web-page-stz.onrender.com";
+const Fondo = ({ children }) => (
+  <div style={{
+    minHeight: "100vh",
+    backgroundImage: `radial-gradient(rgba(0, 0, 0, 0.92), rgba(0, 0, 0, 0.99)), url(${fondo})`,
+    backdropFilter: "blur(20px)",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundAttachment: "fixed",
+    color: C.blanco,
+    fontFamily: "'Segoe UI', system-ui, sans-serif",
+  }}>
+    <header style={{ background: "rgba(0, 0, 0, 0)", backdropFilter: "blur(16px)", position: "sticky", top: 0, zIndex: 100 }}>
+      <div style={{
+        maxWidth: "400px",
+        height: "80px",
+        margin: "0 auto",
+        padding: "12px 24px",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        boxSizing: "border-box",
+      }}>
+        <img
+          src="/skz-logo.png"
+          alt="SKZ Virtual Album"
+          style={{ height: "56px", width: "auto", objectFit: "contain", display: "block" }}
+        />
+      </div>
+    </header>
+    <div style={{
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      minHeight: "calc(100vh - 80px)",
+      padding: "24px 16px",
+    }}>
+      {children}
+    </div>
+  </div>
+);
 
 export default function PantallaEscanear() {
   const [searchParams] = useSearchParams();
@@ -124,7 +166,7 @@ export default function PantallaEscanear() {
   // ── PASO: Nombre ──────────────────────────────────────────────────────────
   if (paso === "nombre") {
     return (
-      <div style={estilos.fondo}>
+      <Fondo>
         <div style={estilos.card}>
           <div style={{ fontSize: "3rem" }}>🎵</div>
           <h1 style={estilos.titulo}>SKZ Virtual Album</h1>
@@ -143,16 +185,16 @@ export default function PantallaEscanear() {
             Continuar →
           </button>
         </div>
-      </div>
+      </Fondo>
     );
   }
 
   // ── PASO: Raspar ──────────────────────────────────────────────────────────
   if (paso === "raspar") {
     return (
-      <div style={estilos.fondo}>
+      <Fondo>
         <div style={estilos.card}>
-          <p style={{ color: "rgba(255,255,255,0.3)", fontSize: "11px", fontFamily: "monospace" }}>
+          <p style={{ color: C.blancoTenue, fontSize: "11px", fontFamily: FONTS.mono }}>
             {codigoQR}
           </p>
           <h2 style={{ ...estilos.titulo, fontSize: "1.4rem" }}>
@@ -166,7 +208,7 @@ export default function PantallaEscanear() {
           <div style={{ position: "relative", width: "100%", height: "160px", borderRadius: "12px", overflow: "hidden", background: "linear-gradient(135deg, #04212F, #0a0a1f)", border: "1px solid rgba(249,190,12,0.3)" }}>
             <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "8px" }}>
               <div style={{ fontSize: "2rem" }}>🎵</div>
-              <p style={{ color: "#F9BE0C", fontWeight: "700", fontSize: "14px", textAlign: "center", padding: "0 16px" }}>
+              <p style={{ color: C.amarillo, fontWeight: "700", fontSize: "14px", textAlign: "center", padding: "0 16px" }}>
                 {revelada ? "¡Completado!" : "???"}
               </p>
             </div>
@@ -186,7 +228,7 @@ export default function PantallaEscanear() {
           <div style={{ width: "100%", height: "4px", background: "rgba(255,255,255,0.06)", borderRadius: "2px" }}>
             <div style={{ height: "100%", width: `${raspado}%`, background: "linear-gradient(90deg, #3236A2, #F9BE0C)", borderRadius: "2px", transition: "width 0.1s" }} />
           </div>
-          <p style={{ color: "rgba(255,255,255,0.3)", fontSize: "10px", fontFamily: "monospace" }}>
+          <p style={{ color: C.blancoTenue, fontSize: "10px", fontFamily: FONTS.mono }}>
             {raspado}% raspado
           </p>
 
@@ -194,8 +236,8 @@ export default function PantallaEscanear() {
           {mostrarDedicatoria && (
             <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: "10px", marginTop: "8px" }}>
               <div style={{ height: "1px", background: "rgba(249,190,12,0.2)" }} />
-              <p style={{ margin: 0, fontSize: "13px", color: "rgba(255,255,255,0.6)", textAlign: "center" }}>
-                ¿Quieres dejar una dedicatoria? <span style={{ color: "rgba(255,255,255,0.3)" }}>(opcional)</span>
+              <p style={{ margin: 0, fontSize: "13px", color: C.blancoSuave, textAlign: "center" }}>
+                ¿Quieres dejar una dedicatoria? <span style={{ color: C.blancoTenue }}>(opcional)</span>
               </p>
               <input
                 type="text"
@@ -207,7 +249,7 @@ export default function PantallaEscanear() {
                 autoFocus
                 style={estilos.input}
               />
-              <p style={{ margin: 0, fontSize: "10px", color: "rgba(255,255,255,0.25)", textAlign: "right", fontFamily: "monospace" }}>
+              <p style={{ margin: 0, fontSize: "10px", color: C.blancoTenue, textAlign: "right", fontFamily: FONTS.mono }}>
                 {dedicatoria.length}/150
               </p>
               <button
@@ -225,28 +267,28 @@ export default function PantallaEscanear() {
             </div>
           )}
         </div>
-      </div>
+      </Fondo>
     );
   }
 
   // ── PASO: Éxito ───────────────────────────────────────────────────────────
   if (paso === "exito" && tarjeta) {
     return (
-      <div style={estilos.fondo}>
+      <Fondo>
         <div style={{ ...estilos.card, border: "1px solid rgba(249,190,12,0.4)", boxShadow: "0 0 40px rgba(249,190,12,0.15)" }}>
           <div style={{ fontSize: "3rem" }}>🎉</div>
-          <p style={{ color: "rgba(255,255,255,0.3)", fontSize: "11px", fontFamily: "monospace" }}>
+          <p style={{ color: C.blancoTenue, fontSize: "11px", fontFamily: FONTS.mono }}>
             #{String(tarjeta.numeracion).padStart(3, "0")} · {tarjeta.album}
           </p>
-          <h2 style={{ ...estilos.titulo, color: "#F9BE0C", fontSize: "1.6rem" }}>
+          <h2 style={{ ...estilos.titulo, color: C.amarillo, fontSize: "1.6rem" }}>
             {tarjeta.nombreCancion}
           </h2>
           {mensaje && (
-            <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "13px" }}>{mensaje}</p>
+            <p style={{ color: C.blancoSuave, fontSize: "13px" }}>{mensaje}</p>
           )}
           {tarjeta.dedicatoria && (
             <div style={{ width: "100%", background: "rgba(249,190,12,0.06)", border: "1px solid rgba(249,190,12,0.15)", borderRadius: "10px", padding: "12px 16px", textAlign: "left" }}>
-              <p style={{ margin: "0 0 4px", fontSize: "9px", color: "rgba(255,255,255,0.3)", letterSpacing: "2px", textTransform: "uppercase" }}>
+              <p style={{ margin: "0 0 4px", fontSize: "9px", color: C.blancoTenue, letterSpacing: "2px", textTransform: "uppercase" }}>
                 Tu dedicatoria
               </p>
               <p style={{ margin: 0, fontSize: "14px", color: "#FFFFFF", fontStyle: "italic", lineHeight: 1.5 }}>
@@ -254,30 +296,30 @@ export default function PantallaEscanear() {
               </p>
             </div>
           )}
-          <p style={{ color: "rgba(255,255,255,0.3)", fontSize: "12px" }}>
+          <p style={{ color: C.blancoTenue, fontSize: "12px" }}>
             Añadida a tu álbum ✨
           </p>
           <button style={estilos.boton} onClick={() => navigate("/album")}>
             Ver mi álbum →
           </button>
         </div>
-      </div>
+      </Fondo>
     );
   }
 
   // ── PASO: Error ───────────────────────────────────────────────────────────
   if (paso === "error") {
     return (
-      <div style={estilos.fondo}>
+      <Fondo>
         <div style={estilos.card}>
           <div style={{ fontSize: "3rem" }}>⚠️</div>
           <h2 style={{ ...estilos.titulo, color: "#e74c3c" }}>Código no válido</h2>
-          <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "13px" }}>{mensaje}</p>
+          <p style={{ color: C.blancoSuave, fontSize: "13px" }}>{mensaje}</p>
           <button style={{ ...estilos.boton, background: "rgba(231,76,60,0.2)", color: "#FFFFFF" }} onClick={() => navigate("/album")}>
             Volver al álbum
           </button>
         </div>
-      </div>
+      </Fondo>
     );
   }
 
@@ -285,18 +327,9 @@ export default function PantallaEscanear() {
 }
 
 const estilos = {
-  fondo: {
-    minHeight:       "100vh",
-    background:      "linear-gradient(160deg, #04212F 0%, #000000 100%)",
-    display:         "flex",
-    alignItems:      "center",
-    justifyContent:  "center",
-    padding:         "24px 16px",
-    fontFamily:      "'Segoe UI', system-ui, sans-serif",
-  },
   card: {
-    background:    "rgba(4,33,47,0.95)",
-    border:        "1px solid rgba(50,54,162,0.4)",
+    background:    "rgba(255,255,255,0.04)",
+    border:        "1px solid rgba(255,255,255,0.08)",
     borderRadius:  "20px",
     padding:       "32px 24px",
     width:         "100%",
@@ -313,17 +346,20 @@ const estilos = {
     margin:      0,
     fontSize:    "1.8rem",
     fontWeight:  "800",
-    color:       "#FFFFFF",
+    color:       C.amarillo,
+    fontFamily:  FONTS.titulo,
+    letterSpacing: "1px",
+    textTransform: "uppercase",
   },
   subtitulo: {
     margin:    0,
     fontSize:  "13px",
-    color:     "rgba(255,255,255,0.4)",
+    color:     C.blancoTenue,
   },
   input: {
     width:        "100%",
-    background:   "rgba(50,54,162,0.15)",
-    border:       "1px solid rgba(50,54,162,0.4)",
+    background:   "rgba(255,255,255,0.06)",
+    border:       "1px solid rgba(255,255,255,0.12)",
     borderRadius: "8px",
     color:        "#FFFFFF",
     fontSize:     "15px",
@@ -335,7 +371,7 @@ const estilos = {
   },
   boton: {
     width:        "100%",
-    background:   "#F9BE0C",
+    background:   C.amarillo,
     border:       "none",
     borderRadius: "10px",
     color:        "#000000",

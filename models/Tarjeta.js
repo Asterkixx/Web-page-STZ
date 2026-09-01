@@ -83,6 +83,12 @@ album: {
   default: null,
   maxlength: 150,
 },
+    // URL de la canción en Spotify para reproducirla
+    spotifyUrl: {
+      type: String,
+      default: null,
+      trim: true,
+    },
 // URL de la imagen que representa esta tarjeta
     imagenUrl: {
       type: String,
