@@ -114,9 +114,13 @@ export default function PantallaEscanear() {
     const pct = Math.round((transparentes / (pixels.length / 4)) * 100);
     setRaspado(pct);
 
-    // Al llegar al 60% mostramos el input de dedicatoria
+    // Al llegar al 60% mostramos la canción y el input de dedicatoria
     if (pct > 60 && !revelada) {
       setRevelada(true);
+      fetch(`${API_URL}/api/tarjetas/${codigoQR}`)
+        .then(r => r.json())
+        .then(data => { if (data.ok) setTarjeta(data.tarjeta); })
+        .catch(() => {});
       setMostrarDedicatoria(true);
     }
   };
@@ -231,6 +235,18 @@ export default function PantallaEscanear() {
           <p style={{ color: C.blancoTenue, fontSize: "10px", fontFamily: FONTS.mono }}>
             {raspado}% raspado
           </p>
+
+          {/* Nombre de la canción — aparece al raspar suficiente */}
+          {revelada && tarjeta && (
+            <div style={{ width: "100%", textAlign: "center", padding: "8px 0" }}>
+              <p style={{ margin: "0 0 2px", fontSize: "10px", color: C.blancoTenue, letterSpacing: "2px", textTransform: "uppercase", fontFamily: FONTS.mono }}>
+                #{String(tarjeta.numeracion).padStart(3, "0")} · {tarjeta.album}
+              </p>
+              <h2 style={{ margin: 0, fontSize: "1.3rem", fontWeight: "800", color: C.amarillo, fontFamily: FONTS.titulo, letterSpacing: "1px", textTransform: "uppercase" }}>
+                {tarjeta.nombreCancion}
+              </h2>
+            </div>
+          )}
 
           {/* Input dedicatoria — aparece al raspar suficiente */}
           {mostrarDedicatoria && (
