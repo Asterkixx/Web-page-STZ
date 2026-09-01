@@ -71,6 +71,20 @@ export default function PantallaEscanear() {
 
   useEffect(() => {
     if (paso === "raspar" && canvasRef.current) inicializarCanvas();
+    const onResize = () => {
+      if (paso === "raspar" && canvasRef.current && !revelada) inicializarCanvas();
+    };
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, [paso]);
+
+  useEffect(() => {
+    if (paso === "raspar") {
+      fetch(`${API_URL}/api/tarjetas/${codigoQR}`)
+        .then(r => r.json())
+        .then(data => { if (data.ok) setTarjeta(data.tarjeta); })
+        .catch(() => {});
+    }
   }, [paso]);
 
   const inicializarCanvas = () => {
@@ -209,13 +223,22 @@ export default function PantallaEscanear() {
           </p>
 
           {/* Canvas de raspado */}
-          <div style={{ position: "relative", width: "100%", height: "160px", borderRadius: "12px", overflow: "hidden", background: "linear-gradient(135deg, #04212F, #0a0a1f)", border: "1px solid rgba(249,190,12,0.3)" }}>
-            <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "8px" }}>
-              <div style={{ fontSize: "2rem" }}>🎵</div>
-              <p style={{ color: C.amarillo, fontWeight: "700", fontSize: "14px", textAlign: "center", padding: "0 16px" }}>
-                {revelada ? "¡Completado!" : "???"}
-              </p>
-            </div>
+          <div style={{ position: "relative", width: "100%", maxWidth: "280px", aspectRatio: "0.7", borderRadius: "16px", overflow: "hidden", border: "1px solid rgba(249,190,12,0.3)", boxShadow: "0 12px 40px rgba(0,0,0,0.55)" }}>
+            {tarjeta && (
+              <img
+                src={`/tarjetas/${tarjeta.numeracion}.jpg`}
+                alt={tarjeta.nombreCancion}
+                style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+              />
+            )}
+            {!tarjeta && (
+              <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "8px", background: "linear-gradient(135deg, #04212F, #0a0a1f)" }}>
+                <div style={{ fontSize: "2rem" }}>🎵</div>
+                <p style={{ color: C.amarillo, fontWeight: "700", fontSize: "14px", textAlign: "center", padding: "0 16px" }}>
+                  {revelada ? "¡Completado!" : "Raspa para descubrir"}
+                </p>
+              </div>
+            )}
             <canvas
               ref={canvasRef}
               style={{ position: "absolute", inset: 0, width: "100%", height: "100%", cursor: "crosshair", touchAction: "none" }}
@@ -236,14 +259,9 @@ export default function PantallaEscanear() {
             {raspado}% raspado
           </p>
 
-          {/* Foto + nombre de la canción — aparece al raspar suficiente */}
+          {/* Nombre de la canción — aparece al raspar suficiente */}
           {revelada && tarjeta && (
-            <div style={{ width: "100%", display: "flex", flexDirection: "column", alignItems: "center", gap: "8px", padding: "8px 0" }}>
-              <img
-                src={`/tarjetas/${tarjeta.numeracion}.jpg`}
-                alt={tarjeta.nombreCancion}
-                style={{ width: "120px", height: "150px", objectFit: "cover", borderRadius: "10px", border: "1px solid rgba(249,190,12,0.3)" }}
-              />
+            <div style={{ width: "100%", display: "flex", flexDirection: "column", alignItems: "center", gap: "4px", padding: "8px 0" }}>
               <p style={{ margin: 0, fontSize: "10px", color: C.blancoTenue, letterSpacing: "2px", textTransform: "uppercase", fontFamily: FONTS.mono }}>
                 #{String(tarjeta.numeracion).padStart(3, "0")} · {tarjeta.album}
               </p>
