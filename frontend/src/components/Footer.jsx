@@ -59,7 +59,7 @@ const Footer = () => {
         {/* Botón 1: Álbumes → Álbum principal */}
         <button style={{ ...estiloBoton, backgroundColor: activo('/album') }} onClick={() => navigate('/album')}>
           <img 
-            src="/src/icons/album.png" 
+            src="/icons/album.png" 
             alt="Álbumes" 
             style={estiloImagen} 
           />
@@ -69,7 +69,7 @@ const Footer = () => {
         {/* Botón 2: Spotify → Canciones desbloqueadas */}
         <button style={estiloBoton} onClick={() => navigate('/desbloqueadas')}>
           <img 
-            src="/src/icons/spotify_logo.png" 
+            src="/icons/spotify_logo.png" 
             alt="Spotify" 
             style={{
               ...estiloImagen,
@@ -82,7 +82,7 @@ const Footer = () => {
         {/* Botón 3: Contacto → Dedicatorias */}
         <button style={estiloBoton} onClick={() => navigate('/dedicatorias')}>
           <img 
-            src="/src/icons/contacto.png" 
+            src="/icons/contacto.png" 
             alt="Contacto" 
             style={estiloImagen} 
           />
