@@ -236,10 +236,15 @@ export default function PantallaEscanear() {
             {raspado}% raspado
           </p>
 
-          {/* Nombre de la canción — aparece al raspar suficiente */}
+          {/* Foto + nombre de la canción — aparece al raspar suficiente */}
           {revelada && tarjeta && (
-            <div style={{ width: "100%", textAlign: "center", padding: "8px 0" }}>
-              <p style={{ margin: "0 0 2px", fontSize: "10px", color: C.blancoTenue, letterSpacing: "2px", textTransform: "uppercase", fontFamily: FONTS.mono }}>
+            <div style={{ width: "100%", display: "flex", flexDirection: "column", alignItems: "center", gap: "8px", padding: "8px 0" }}>
+              <img
+                src={`/tarjetas/${tarjeta.numeracion}.jpg`}
+                alt={tarjeta.nombreCancion}
+                style={{ width: "120px", height: "150px", objectFit: "cover", borderRadius: "10px", border: "1px solid rgba(249,190,12,0.3)" }}
+              />
+              <p style={{ margin: 0, fontSize: "10px", color: C.blancoTenue, letterSpacing: "2px", textTransform: "uppercase", fontFamily: FONTS.mono }}>
                 #{String(tarjeta.numeracion).padStart(3, "0")} · {tarjeta.album}
               </p>
               <h2 style={{ margin: 0, fontSize: "1.3rem", fontWeight: "800", color: C.amarillo, fontFamily: FONTS.titulo, letterSpacing: "1px", textTransform: "uppercase" }}>
